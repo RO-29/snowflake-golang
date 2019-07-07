@@ -5,7 +5,7 @@ import (
 	"log"
 	"time"
 
-	"github.com/RO-29/snowflake-Golang/snowflake"
+	"github.com/RO-29/snowflake-golang/snowflake"
 )
 
 func init() {
