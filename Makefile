@@ -32,3 +32,13 @@ install-golangci-lint: $(GOLANGCI_LINT_DIR)
 .PHONY: golangci-lint
 golangci-lint: install-golangci-lint
 	$(GOLANGCI_LINT_DIR)/golangci-lint run
+
+.PHONY: mod-update
+mod-update:
+	go get -u
+	$(MOD_TIDY)
+
+MOD_TIDY=rm -f go.sum && go mod tidy
+.PHONY: mod-tidy
+mod-tidy:
+	$(MOD_TIDY)
