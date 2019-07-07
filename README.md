@@ -7,7 +7,7 @@ According to [twitter-snowflake](https://github.com/twitter-archive/snowflake/tr
 
 >Snowflake is a network service for generating unique ID numbers at high scale with some simple guarantees.
 
-[![Build Status](https://travis-ci.com/RO-29/snowflake-Golang.svg?branch=master)](https://travis-ci.com/RO-29/snowflake-Golang)
+[![Build Status](https://travis-ci.com/RO-29/snowflake-Golang.svg?branch=dev)](https://travis-ci.com/RO-29/snowflake-Golang)
 
 ## Requirements
 
