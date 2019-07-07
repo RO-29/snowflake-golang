@@ -1,4 +1,4 @@
-module github.com/RO-29/snowflake-Golang
+module github.com/RO-29/snowflake-golang
 
 go 1.12
 
