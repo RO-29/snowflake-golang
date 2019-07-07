@@ -6,9 +6,4 @@ branches:
   except:
     - master
 
-addons:
-  apt:
-    packages:
-      - pcregrep
-
 script: make build test lint
