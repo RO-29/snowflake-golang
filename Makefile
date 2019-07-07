@@ -1,6 +1,8 @@
 
 .DEFAULT_GOAL=build
 
+export GO111MODULE=on
+
 .PHONY: build
 build: build/snowflake
 
