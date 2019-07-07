@@ -1,0 +1,14 @@
+dist: trusty
+language: go
+go: "1.12.6"
+
+branches:
+  except:
+    - master
+
+addons:
+  apt:
+    packages:
+      - pcregrep
+
+script: make test lint
