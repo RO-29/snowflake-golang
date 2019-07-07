@@ -11,4 +11,4 @@ addons:
     packages:
       - pcregrep
 
-script: make test lint
+script: make build test lint
