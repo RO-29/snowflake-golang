@@ -16,12 +16,12 @@ var (
 	customEPOCH int64
 	nodeID      int
 	maxNodeID   = (int)(math.Pow(2, float64(nodeIDBITS)) - 1)
-	maxSequence = (int)(math.Pow(2, sequenceBITS) - 1)
+	maxSequence = (int)(math.Pow(2, float64(sequenceBITS)) - 1)
 
-	totalBITS    = uint(64)
-	epochBITS    = uint(42)
-	nodeIDBITS   = uint(10)
-	sequenceBITS = float64(12)
+	totalBITS    = 64
+	epochBITS    = 42
+	nodeIDBITS   = 10
+	sequenceBITS = 12
 )
 
 //Init the custom epoch
@@ -63,10 +63,10 @@ func (s *Snowflake) GenerateUniqueSequenceID() (int64, error) {
 	}
 
 	// first 42 bits of our ID will be filled with the epoch timestamp. left-shift to achieve this
-	id := currentTimeStamp << (totalBITS - epochBITS)
+	id := currentTimeStamp << uint(totalBITS-epochBITS)
 
 	// fill the next 10 bits with the node ID.
-	id |= int64(nodeID << (totalBITS - epochBITS - nodeIDBITS))
+	id |= int64(nodeID << uint(totalBITS-epochBITS-nodeIDBITS))
 
 	// last 12 bits with the local counter.
 	id |= s.sequence

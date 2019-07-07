@@ -25,6 +25,9 @@ func nodeIDGenerator() {
 	}
 
 	nodeID = hashCode(nodeIFAS) & maxNodeID
+	if nodeID == -1 {
+		nodeID = rand.Int()
+	}
 
 }
 
