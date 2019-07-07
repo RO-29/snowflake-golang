@@ -1,14 +1,13 @@
 # Snowflake-Golang
 
-SnowFlake-Golang is a golang implemtetaion of twitter unique ID generation algorithm
+SnowFlake-Golang is a golang implemtentaion of twitter's snowflake-jave-uniqueID generation algorithm.
+It is simple sequence generator that generates 64-bit IDs based on the concepts outlined in the Twitter snowflake service
 
-Accoriding to twitter-snowflake:
+According to [twitter-snowflake](https://github.com/twitter-archive/snowflake/tree/snowflake-2010):
 
->>>Snowflake is a network service for generating unique ID numbers at high scale with some simple guarantees.
+>Snowflake is a network service for generating unique ID numbers at high scale with some simple guarantees.
 
-## Motivation
-
-As we at Twitter move away from Mysql towards Cassandra, we've needed a new way to generate id numbers. There is no sequential id generation facility in Cassandra, nor should there be.
+[![Build Status](https://travis-ci.com/RO-29/snowflake-Golang.svg?branch=master)](https://travis-ci.com/RO-29/snowflake-Golang)
 
 ## Requirements
 
@@ -37,31 +36,31 @@ The ids should be sortable without loading the full objects that the represent. 
 
 There are many otherwise reasonable solutions to this problem that require 128bit numbers. For various reasons, we need to keep our ids under 64bits.
 
-### Highly Available
-
-The id generation scheme should be at least as available as our related services (like our storage services).
-
 ##  Solution
-* Thrift Server written in Scala
+
 * id is composed of:
-  * time - 41 bits (millisecond precision w/ a custom epoch gives us 69 years)
-  * configured machine id - 10 bits - gives us up to 1024 machines
+  * time - Epoch timestamp in milliseconds precision - 42 bits. The maximum timestamp that can be represented using 42 bits is 242 - 1, or 4398046511103, which comes out to be Wednesday, May 15, 2109 7:35:11.103 AM. That gives us 139 years with respect to a custom epoch.
+  * configured machine id - 10 bits. This gives us 1024 nodes/machines.
   * sequence number - 12 bits - rolls over every 4096 per machine (with protection to avoid rollover in the same ms)
+
+Your microservices can use this Sequence Generator to generate IDs independently. This is efficient and fits in the size of a bigint.
 
 ### System Clock Dependency
 
 You should use NTP to keep your system clock accurate.  Snowflake protects from non-monotonic clocks, i.e. clocks that run backwards.  If your clock is running fast and NTP tells it to repeat a few milliseconds, snowflake will refuse to generate ids until a time that is after the last time we generated an id. Even better, run in a mode where ntp won't move the clock backwards. See http://wiki.dovecot.org/TimeMovedBackwards#Time_synchronization for tips on how to do this.
 
-# Contributing
+## Install
 
-To contribute:
+It requires the latest stable Go version.
 
-1. fork the project
-2. make a branch for each thing you want to do (don't put everything in your master branch: we don't want to cherry-pick and we may not want everything)
-3. send a pull request to ryanking
+`make`
 
-## building
+Executables are compiled in the `build` directory.
 
-To build and test, run `mvn test`.
+It can be imported as a package in your project, this project follows golang modules and semver approach
 
-[![Build Status](https://secure.travis-ci.org/twitter/snowflake.png)](http://travis-ci.org/twitter/snowflake).
+## Run
+
+Run the executables.
+
+Flags documentation is available with `-h`.
