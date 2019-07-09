@@ -20,15 +20,10 @@ func nodeIDGenerator() {
 
 		//In case it fails to get mac address, generate the random number,
 		//gloabbly seeded with time.Now()
-		nodeID = rand.Int()
+		nodeID = rand.Int() & maxNodeID
 		return
 	}
-
 	nodeID = hashCode(nodeIFAS) & maxNodeID
-	if nodeID == -1 {
-		nodeID = rand.Int()
-	}
-
 }
 
 func getMacAddr() (string, error) {
